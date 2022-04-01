@@ -1,0 +1,53 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="validationField.js"></script>
+        <title>Teste do plugin validationField</title>
+    </head>
+    <body>
+        <div class="container-fluid p-5">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5>Teste do validationField</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row col-6">
+                        <div class="col-4">
+                            <input  type="text" class="form-control" id="nome" placeholder="Nome">
+                            <div id="nome" class="invalid-feedback">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control" id="sexo">
+                                <option value="0"> selecione o sexo </option>
+                                <option value="F"> FEMININO </option>
+                                <option value="M"> MASCULINO </option>
+                            </select>
+                            <div class="invalid-feedback" id="sexo">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-primary">TESTE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(() => {
+                $('button').click(() => {
+                    const valid = validationField.validationInput($('input#nome'), 3, 10, 'Nome');
+                    const selectValid = validationField.validationSelect($('select#sexo'), 0, 'Sexo');
+                });
+            });
+        </script>
+    </body>
+</html>
