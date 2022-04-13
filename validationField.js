@@ -5,40 +5,43 @@
 
 validationField = {
     validationInput: (input, min, max, nameField) => {
-        const id = $(input).attr('id');
+        const id = input.getAttribute('id');
+        const span = document.querySelector(`div#${id} span`);
+        
+        if (input.value === '' || input.value == null) {
+            input.classList.add('is-invalid');
+            span.innerHTML = `O campo ${nameField} e obrigatorio.`;
+            return false;
+        }
+        else if (input.value.length < min) {
+            input.classList.add('is-invalid');
+            span.innerHTML = `O campo ${nameField} deve ter no minimo ${min} caracteres.`;
+            return false;
+        }
+        else if (input.value.length > max) {
+            input.classList.add('is-invalid');
+            span.innerHTML = `O campo ${nameField} deve ter no maximo ${max} caracteres.`;
+            return false;
+        }
 
-        if ($(input).val() === '' || $(input).val() == null) {
-            $(`div#${id} span`).text(`O campo ${nameField} e obrigatorio.`);
-            $(input).addClass('is-invalid');
-            return false;
-        }
-        else if ($(input).val().length < min) {
-            $(`div#${id} span`).text(`O campo ${nameField} deve ter no minimo ${min} caracteres.`);
-            $(input).addClass('is-invalid');
-            return false;
-        }
-        else if ($(input).val().length > max) {
-            $(`div#${id} span`).text(`O campo ${nameField} deve ter no maximo ${max} caracteres.`);
-            $(input).addClass('is-invalid');
-            return false;
-        }
-
-        $(`div#${id} span`).text('');
-        $(input).removeClass('is-invalid');
+        span.innerHTML = '';
+        input.classList.remove('is-invalid');
         
         return true;
     },
     validationSelect: (select, defaultValue, nameField) => {
-        const id = $(select).attr('id');
+        const id = select.getAttribute('id');
+        const span = document.querySelector(`div#${id} span`);
 
-        if ($(select).val() == defaultValue || $(select).val() == null) {
-            $(`div#${id} span`).text(`Voce deve selecionar uma opção do campo ${nameField}`);
-            $(select).addClass('is-invalid');
+        if (select.options[select.selectedIndex].value == defaultValue || select.options[select.selectedIndex].value == null) {
+            select.classList.add('is-invalid');
+            span.innerHTML = `Voce deve selecionar uma opção do campo ${nameField}`;
+            console.log(span);
             return false;
         }
 
-        $(`div#${id} span`).text('');
-        $(select).removeClass('is-invalid');
+        span.innerHTML = '';
+        select.classList.remove('is-invalid');
         
         return true;
     }
